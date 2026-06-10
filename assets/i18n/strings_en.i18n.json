@@ -1,0 +1,34 @@
+{
+  "projectName": "Weathernaut",
+  "appName": "Weathernaut",
+  "welcome": "Welcome to Weathernaut",
+  "home": {
+    "title": "Weather Dashboard",
+    "humidity": "Humidity",
+    "wind": "Wind Speed",
+    "pressure": "Pressure",
+    "feelsLike": "Feels Like",
+    "hourlyForecast": "Hourly Forecast",
+    "dailyForecast": "7-Day Forecast",
+    "searchPrompt": "Search for a city..."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Enter city name...",
+    "noResults": "No cities found",
+    "recentSearches": "Recent Searches"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme Mode",
+    "systemTheme": "System Default",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "units": "Temperature Units",
+    "celsius": "Celsius (°C)",
+    "fahrenheit": "Fahrenheit (°F)",
+    "language": "Language",
+    "english": "English",
+    "turkish": "Türkçe"
+  }
+}

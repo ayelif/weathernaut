@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Weathernaut (DEV)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/flavors/main_dev.dart"
+    },
+    {
+      "name": "Weathernaut (PROD)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/flavors/main_prod.dart"
+    }
+  ]
+}

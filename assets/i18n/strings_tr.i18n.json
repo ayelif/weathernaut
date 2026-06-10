@@ -1,0 +1,34 @@
+{
+  "projectName": "Weathernaut",
+  "appName": "Weathernaut",
+  "welcome": "Weathernaut'a Hoş Geldiniz",
+  "home": {
+    "title": "Hava Durumu Paneli",
+    "humidity": "Nem",
+    "wind": "Rüzgar Hızı",
+    "pressure": "Basınç",
+    "feelsLike": "Hissedilen",
+    "hourlyForecast": "Saatlik Tahmin",
+    "dailyForecast": "7 Günlük Tahmin",
+    "searchPrompt": "Bir şehir arayın..."
+  },
+  "search": {
+    "title": "Arama",
+    "placeholder": "Şehir adı girin...",
+    "noResults": "Şehir bulunamadı",
+    "recentSearches": "Son Aramalar"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "theme": "Tema Modu",
+    "systemTheme": "Sistem Varsayılanı",
+    "darkMode": "Karanlık Mod",
+    "lightMode": "Aydınlık Mod",
+    "units": "Sıcaklık Birimi",
+    "celsius": "Santigrat (°C)",
+    "fahrenheit": "Fahrenheit (°F)",
+    "language": "Dil",
+    "english": "English",
+    "turkish": "Türkçe"
+  }
+}
