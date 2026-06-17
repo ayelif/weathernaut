@@ -6,6 +6,8 @@ import 'package:weathernaut/app/views/news/bloc/news_bloc.dart';
 import 'package:weathernaut/core/base/background_view.dart';
 import 'package:weathernaut/core/base/dashboard_view.dart';
 import 'package:weathernaut/core/extensions/context_extension.dart';
+import 'package:weathernaut/core/utils/locale/locale_bloc.dart';
+import 'package:weathernaut/gen/strings.g.dart';
 
 @RoutePage()
 class NewsView extends StatefulWidget {
@@ -21,46 +23,77 @@ class _NewsViewState extends State<NewsView> {
     super.initState();
     final homeState = context.read<HomeBloc>().state;
     final city = homeState is HomeLoaded ? homeState.city : 'Istanbul';
-    context.read<NewsBloc>().add(LoadNews(city));
+    final locale = context.read<LocaleBloc>().state.locale;
+    final lang = locale == AppLocale.en ? 'en' : 'tr';
+    context.read<NewsBloc>().add(LoadNews(city, lang: lang));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BackgroundView(
-      child: DashboardView(
-        appBar: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 12),
-          child: Text(
-            'News',
-            style: context.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LocaleBloc, LocaleState>(
+          listener: (context, localeState) {
+            final homeState = context.read<HomeBloc>().state;
+            final city = homeState is HomeLoaded ? homeState.city : 'Istanbul';
+            final lang = localeState.locale == AppLocale.en ? 'en' : 'tr';
+            context.read<NewsBloc>().add(LoadNews(city, lang: lang));
+          },
+        ),
+        BlocListener<HomeBloc, HomeState>(
+          listenWhen: (previous, current) {
+            if (current is HomeLoaded) {
+              if (previous is! HomeLoaded || previous.city != current.city) {
+                return true;
+              }
+            }
+            return false;
+          },
+          listener: (context, homeState) {
+            if (homeState is HomeLoaded) {
+              final locale = context.read<LocaleBloc>().state.locale;
+              final lang = locale == AppLocale.en ? 'en' : 'tr';
+              context.read<NewsBloc>().add(LoadNews(homeState.city, lang: lang));
+            }
+          },
+        ),
+      ],
+      child: BackgroundView(
+        child: DashboardView(
+          appBar: Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 12),
+            child: Text(
+              context.t.news.title,
+              style: context.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
             ),
           ),
+          children: [
+            BlocBuilder<NewsBloc, NewsState>(
+              builder: (context, state) {
+                if (state is NewsLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is NewsError) {
+                  return Center(child: Text(state.message));
+                }
+                if (state is NewsLoaded) {
+                  return _buildNewsList(context, state.articles);
+                }
+                return const SizedBox();
+              },
+            ),
+          ],
         ),
-        children: [
-          BlocBuilder<NewsBloc, NewsState>(
-            builder: (context, state) {
-              if (state is NewsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (state is NewsError) {
-                return Center(child: Text(state.message));
-              }
-              if (state is NewsLoaded) {
-                return _buildNewsList(context, state.articles);
-              }
-              return const SizedBox();
-            },
-          ),
-        ],
       ),
     );
   }
 
   Widget _buildNewsList(BuildContext context, List<dynamic> articles) {
     if (articles.isEmpty) {
-      return const Center(child: Text('No news found'));
+      return Center(child: Text(context.t.news.noNews));
     }
     return Column(
       children: articles.map((article) {

@@ -44,6 +44,9 @@ class TranslationsEn with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsHomeEn home = _TranslationsHomeEn._(_root);
 	@override late final _TranslationsSearchEn search = _TranslationsSearchEn._(_root);
 	@override late final _TranslationsSettingsEn settings = _TranslationsSettingsEn._(_root);
+	@override late final _TranslationsOnboardingEn onboarding = _TranslationsOnboardingEn._(_root);
+	@override late final _TranslationsAuthEn auth = _TranslationsAuthEn._(_root);
+	@override late final _TranslationsNewsEn news = _TranslationsNewsEn._(_root);
 }
 
 // Path: home
@@ -94,6 +97,60 @@ class _TranslationsSettingsEn implements TranslationsSettingsTr {
 	@override String get language => TranslationOverrides.string(_root.$meta, 'settings.language', {}) ?? 'Language';
 	@override String get english => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English';
 	@override String get turkish => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe';
+	@override String get logout => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Log Out';
+}
+
+// Path: onboarding
+class _TranslationsOnboardingEn implements TranslationsOnboardingTr {
+	_TranslationsOnboardingEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get skip => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Skip';
+	@override String get next => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'Next';
+	@override String get getStarted => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Get Started';
+	@override String get page1Title => TranslationOverrides.string(_root.$meta, 'onboarding.page1Title', {}) ?? 'Real-Time Weather';
+	@override String get page1Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page1Desc', {}) ?? 'Get accurate weather updates for any city around the world.';
+	@override String get page2Title => TranslationOverrides.string(_root.$meta, 'onboarding.page2Title', {}) ?? 'Weekly Forecast';
+	@override String get page2Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page2Desc', {}) ?? 'Plan your week ahead with 7-day weather forecasts.';
+	@override String get page3Title => TranslationOverrides.string(_root.$meta, 'onboarding.page3Title', {}) ?? 'Save Your Cities';
+	@override String get page3Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page3Desc', {}) ?? 'Track weather for multiple cities at once.';
+}
+
+// Path: auth
+class _TranslationsAuthEn implements TranslationsAuthTr {
+	_TranslationsAuthEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get welcomeBack => TranslationOverrides.string(_root.$meta, 'auth.welcomeBack', {}) ?? 'Welcome Back 👋';
+	@override String get signInToContinue => TranslationOverrides.string(_root.$meta, 'auth.signInToContinue', {}) ?? 'Sign in to continue';
+	@override String get email => TranslationOverrides.string(_root.$meta, 'auth.email', {}) ?? 'Email';
+	@override String get password => TranslationOverrides.string(_root.$meta, 'auth.password', {}) ?? 'Password';
+	@override String get forgotPassword => TranslationOverrides.string(_root.$meta, 'auth.forgotPassword', {}) ?? 'Forgot Password?';
+	@override String get signIn => TranslationOverrides.string(_root.$meta, 'auth.signIn', {}) ?? 'Sign In';
+	@override String get dontHaveAccount => TranslationOverrides.string(_root.$meta, 'auth.dontHaveAccount', {}) ?? 'Don\'t have an account?';
+	@override String get signUp => TranslationOverrides.string(_root.$meta, 'auth.signUp', {}) ?? 'Sign Up';
+	@override String get createAccount => TranslationOverrides.string(_root.$meta, 'auth.createAccount', {}) ?? 'Create Account 🌤️';
+	@override String get signUpToGetStarted => TranslationOverrides.string(_root.$meta, 'auth.signUpToGetStarted', {}) ?? 'Sign up to get started';
+	@override String get fullName => TranslationOverrides.string(_root.$meta, 'auth.fullName', {}) ?? 'Full Name';
+	@override String get alreadyHaveAccount => TranslationOverrides.string(_root.$meta, 'auth.alreadyHaveAccount', {}) ?? 'Already have an account?';
+	@override String get errorEmptyFields => TranslationOverrides.string(_root.$meta, 'auth.errorEmptyFields', {}) ?? 'Please fill in all fields';
+	@override String get errorInvalidEmail => TranslationOverrides.string(_root.$meta, 'auth.errorInvalidEmail', {}) ?? 'Please enter a valid email address';
+	@override String get errorPasswordTooShort => TranslationOverrides.string(_root.$meta, 'auth.errorPasswordTooShort', {}) ?? 'Password must be at least 6 characters';
+}
+
+// Path: news
+class _TranslationsNewsEn implements TranslationsNewsTr {
+	_TranslationsNewsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => TranslationOverrides.string(_root.$meta, 'news.title', {}) ?? 'News';
+	@override String get noNews => TranslationOverrides.string(_root.$meta, 'news.noNews', {}) ?? 'No news found';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -130,6 +187,33 @@ extension on TranslationsEn {
 			'settings.language' => TranslationOverrides.string(_root.$meta, 'settings.language', {}) ?? 'Language',
 			'settings.english' => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English',
 			'settings.turkish' => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe',
+			'settings.logout' => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Log Out',
+			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Skip',
+			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'Next',
+			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Get Started',
+			'onboarding.page1Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page1Title', {}) ?? 'Real-Time Weather',
+			'onboarding.page1Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page1Desc', {}) ?? 'Get accurate weather updates for any city around the world.',
+			'onboarding.page2Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page2Title', {}) ?? 'Weekly Forecast',
+			'onboarding.page2Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page2Desc', {}) ?? 'Plan your week ahead with 7-day weather forecasts.',
+			'onboarding.page3Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page3Title', {}) ?? 'Save Your Cities',
+			'onboarding.page3Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page3Desc', {}) ?? 'Track weather for multiple cities at once.',
+			'auth.welcomeBack' => TranslationOverrides.string(_root.$meta, 'auth.welcomeBack', {}) ?? 'Welcome Back 👋',
+			'auth.signInToContinue' => TranslationOverrides.string(_root.$meta, 'auth.signInToContinue', {}) ?? 'Sign in to continue',
+			'auth.email' => TranslationOverrides.string(_root.$meta, 'auth.email', {}) ?? 'Email',
+			'auth.password' => TranslationOverrides.string(_root.$meta, 'auth.password', {}) ?? 'Password',
+			'auth.forgotPassword' => TranslationOverrides.string(_root.$meta, 'auth.forgotPassword', {}) ?? 'Forgot Password?',
+			'auth.signIn' => TranslationOverrides.string(_root.$meta, 'auth.signIn', {}) ?? 'Sign In',
+			'auth.dontHaveAccount' => TranslationOverrides.string(_root.$meta, 'auth.dontHaveAccount', {}) ?? 'Don\'t have an account?',
+			'auth.signUp' => TranslationOverrides.string(_root.$meta, 'auth.signUp', {}) ?? 'Sign Up',
+			'auth.createAccount' => TranslationOverrides.string(_root.$meta, 'auth.createAccount', {}) ?? 'Create Account 🌤️',
+			'auth.signUpToGetStarted' => TranslationOverrides.string(_root.$meta, 'auth.signUpToGetStarted', {}) ?? 'Sign up to get started',
+			'auth.fullName' => TranslationOverrides.string(_root.$meta, 'auth.fullName', {}) ?? 'Full Name',
+			'auth.alreadyHaveAccount' => TranslationOverrides.string(_root.$meta, 'auth.alreadyHaveAccount', {}) ?? 'Already have an account?',
+			'auth.errorEmptyFields' => TranslationOverrides.string(_root.$meta, 'auth.errorEmptyFields', {}) ?? 'Please fill in all fields',
+			'auth.errorInvalidEmail' => TranslationOverrides.string(_root.$meta, 'auth.errorInvalidEmail', {}) ?? 'Please enter a valid email address',
+			'auth.errorPasswordTooShort' => TranslationOverrides.string(_root.$meta, 'auth.errorPasswordTooShort', {}) ?? 'Password must be at least 6 characters',
+			'news.title' => TranslationOverrides.string(_root.$meta, 'news.title', {}) ?? 'News',
+			'news.noNews' => TranslationOverrides.string(_root.$meta, 'news.noNews', {}) ?? 'No news found',
 			_ => null,
 		};
 	}

@@ -1,12 +1,20 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:weathernaut/app/routes/app_router.dart';
+import 'package:weathernaut/app/views/auth/bloc/auth_bloc.dart';
 import 'package:weathernaut/core/base/background_view.dart';
 import 'package:weathernaut/core/base/dashboard_view.dart';
 import 'package:weathernaut/core/extensions/context_extension.dart';
-import 'package:weathernaut/core/themes/theme_controller.dart';
+import 'package:weathernaut/core/themes/bloc/theme_bloc.dart';
+import 'package:weathernaut/core/utils/locale/locale_bloc.dart';
 import 'package:weathernaut/gen/strings.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weathernaut/app/views/home/bloc/home_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weathernaut/core/data/local/hive_boxes.dart';
 
 @RoutePage()
 class SettingsView extends StatefulWidget {
@@ -18,126 +26,309 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   bool _isCelsius = true;
+  final _auth = FirebaseAuth.instance;
+  bool _isUploading = false;
+  String? _photoUrl;
 
   @override
-  Widget build(BuildContext context) {
-    final currentLocale = TranslationProvider.of(context).locale;
+  void initState() {
+    super.initState();
+    final user = _auth.currentUser;
+    if (user != null) {
+      final settingsBox = Hive.box(HiveBoxes.settings);
+      _photoUrl = settingsBox.get('profile_picture_${user.uid}');
+    }
+  }
 
-    return BackgroundView(
-      child: DashboardView(
-        appBar: Padding(
-          padding: const EdgeInsets.only(top: 16, bottom: 12),
-          child: Row(
+  Future<void> _uploadProfileImage() async {
+    final picker = ImagePicker();
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 256,
+      maxHeight: 256,
+      imageQuality: 70,
+    );
+
+    if (image == null) return;
+
+    setState(() {
+      _isUploading = true;
+    });
+
+    try {
+      final user = _auth.currentUser;
+      if (user == null) throw Exception('User not logged in');
+
+      final bytes = await image.readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      final settingsBox = Hive.box(HiveBoxes.settings);
+      await settingsBox.put('profile_picture_${user.uid}', base64Image);
+
+      if (mounted) {
+        setState(() {
+          _photoUrl = base64Image;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profil fotoğrafı güncellendi!')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Hata oluştu: ${e.toString()}')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isUploading = false;
+        });
+      }
+    }
+  }
+
+  Widget _buildProfileCard(BuildContext context) {
+    final user = _auth.currentUser;
+    final displayName = user?.displayName ?? '';
+    final email = user?.email ?? '';
+    final photoUrl = _photoUrl;
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: context.colorScheme.surface.withOpacity(0.8),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: context.colorScheme.primary.withOpacity(0.05),
+        ),
+      ),
+      child: Row(
+        children: [
+          Stack(
             children: [
-              Text(
-                context.t.settings.title,
-                style: context.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28,
-                ),
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: context.colorScheme.primary.withOpacity(0.1),
+                backgroundImage: photoUrl != null ? MemoryImage(base64Decode(photoUrl)) : null,
+                child: photoUrl == null
+                    ? Text(
+                        displayName.isNotEmpty
+                            ? displayName.substring(0, 1).toUpperCase()
+                            : (email.isNotEmpty ? email.substring(0, 1).toUpperCase() : '?'),
+                        style: context.textTheme.headlineMedium?.copyWith(
+                          color: context.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : null,
               ),
+              if (_isUploading)
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.black38,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 3,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: _uploadProfileImage,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt_rounded,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
-        ),
-        children: [
-          // Units Settings Card
-          _buildSettingsCard(
-            context,
-            icon: Icons.thermostat_rounded,
-            title: context.t.settings.units,
-            child: Row(
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ChoiceChip(
-                  label: const Text('°C'),
-                  selected: _isCelsius,
-                  onSelected: (val) {
-                    setState(() {
-                      _isCelsius = true;
-                    });
-                  },
+                Text(
+                  displayName.isNotEmpty ? displayName : 'Kullanıcı',
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-                const SizedBox(width: 8),
-                ChoiceChip(
-                  label: const Text('°F'),
-                  selected: !_isCelsius,
-                  onSelected: (val) {
-                    setState(() {
-                      _isCelsius = false;
-                    });
-                  },
+                const SizedBox(height: 4),
+                Text(
+                  email,
+                  style: context.textTheme.bodyLarge?.copyWith(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
                 ),
               ],
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Theme Settings Card (Dropdown to choose Light, Dark, or System)
-          _buildSettingsCard(
-            context,
-            icon: Icons.dark_mode_rounded,
-            title: context.t.settings.theme,
-            child: DropdownButton<ThemeMode>(
-              value: ThemeController.instance.themeMode,
-              underline: const SizedBox(),
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              items: [
-                DropdownMenuItem(
-                  value: ThemeMode.system,
-                  child: Text(context.t.settings.systemTheme),
-                ),
-                DropdownMenuItem(
-                  value: ThemeMode.light,
-                  child: Text(context.t.settings.lightMode),
-                ),
-                DropdownMenuItem(
-                  value: ThemeMode.dark,
-                  child: Text(context.t.settings.darkMode),
-                ),
-              ],
-              onChanged: (mode) {
-                if (mode != null) {
-                  setState(() {
-                    ThemeController.instance.setThemeMode(mode);
-                  });
-                }
-              },
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Language Settings Card
-          _buildSettingsCard(
-            context,
-            icon: Icons.language_rounded,
-            title: context.t.settings.language,
-            child: DropdownButton<AppLocale>(
-              value: currentLocale,
-              underline: const SizedBox(),
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              items: [
-                DropdownMenuItem(
-                  value: AppLocale.en,
-                  child: Text(context.t.settings.english),
-                ),
-                DropdownMenuItem(
-                  value: AppLocale.tr,
-                  child: Text(context.t.settings.turkish),
-                ),
-              ],
-              onChanged: (locale) {
-                if (locale != null) {
-                  LocaleSettings.setLocale(locale);
-                  final lang = locale == AppLocale.tr ? 'tr' : 'en';
-                  final homeState = context.read<HomeBloc>().state;
-                  final city = homeState is HomeLoaded
-                      ? homeState.city
-                      : 'Istanbul';
-                  context.read<HomeBloc>().add(LoadWeather(city, lang: lang));
-                }
-              },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentLocale = context.watch<LocaleBloc>().state.locale;
+    final currentThemeMode = context.watch<ThemeBloc>().state.themeMode;
+
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthUnauthenticated) {
+          context.router.replaceAll([const SignInViewRoute()]);
+        }
+      },
+      child: BackgroundView(
+        child: DashboardView(
+          appBar: Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 12),
+            child: Row(
+              children: [
+                Text(
+                  context.t.settings.title,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          children: [
+            _buildProfileCard(context),
+            const SizedBox(height: 24),
+            // Units Settings Card
+            _buildSettingsCard(
+              context,
+              icon: Icons.thermostat_rounded,
+              title: context.t.settings.units,
+              child: Row(
+                children: [
+                  ChoiceChip(
+                    label: const Text('°C'),
+                    selected: _isCelsius,
+                    onSelected: (val) {
+                      setState(() {
+                        _isCelsius = true;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  ChoiceChip(
+                    label: const Text('°F'),
+                    selected: !_isCelsius,
+                    onSelected: (val) {
+                      setState(() {
+                        _isCelsius = false;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Theme Settings Card (Dropdown to choose Light, Dark, or System)
+            _buildSettingsCard(
+              context,
+              icon: Icons.dark_mode_rounded,
+              title: context.t.settings.theme,
+              child: DropdownButton<ThemeMode>(
+                value: currentThemeMode,
+                underline: const SizedBox(),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                items: [
+                  DropdownMenuItem(
+                    value: ThemeMode.system,
+                    child: Text(context.t.settings.systemTheme),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.light,
+                    child: Text(context.t.settings.lightMode),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text(context.t.settings.darkMode),
+                  ),
+                ],
+                onChanged: (mode) {
+                  if (mode != null) {
+                    context.read<ThemeBloc>().add(ChangeTheme(mode));
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Language Settings Card
+            _buildSettingsCard(
+              context,
+              icon: Icons.language_rounded,
+              title: context.t.settings.language,
+              child: DropdownButton<AppLocale>(
+                value: currentLocale,
+                underline: const SizedBox(),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                items: [
+                  DropdownMenuItem(
+                    value: AppLocale.en,
+                    child: Text(context.t.settings.english),
+                  ),
+                  DropdownMenuItem(
+                    value: AppLocale.tr,
+                    child: Text(context.t.settings.turkish),
+                  ),
+                ],
+                onChanged: (locale) {
+                  if (locale != null) {
+                    context.read<LocaleBloc>().add(ChangeLocale(locale));
+                    final lang = locale == AppLocale.tr ? 'tr' : 'en';
+                    final homeState = context.read<HomeBloc>().state;
+                    final city = homeState is HomeLoaded
+                        ? homeState.city
+                        : 'Istanbul';
+                    context.read<HomeBloc>().add(LoadWeather(city, lang: lang));
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Logout Settings Card
+            _buildSettingsCard(
+              context,
+              icon: Icons.logout_rounded,
+              title: context.t.settings.logout,
+              child: IconButton(
+                icon: const Icon(Icons.exit_to_app_rounded, color: Colors.redAccent),
+                onPressed: () {
+                  context.read<AuthBloc>().add(SignOutRequested());
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

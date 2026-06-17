@@ -14,7 +14,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   Future<void> _onLoadNews(LoadNews event, Emitter<NewsState> emit) async {
     emit(NewsLoading());
     try {
-      final articles = await _repository.getNewsByCity(event.city);
+      final articles = await _repository.getNewsByCity(event.city, lang: event.lang);
       emit(NewsLoaded(articles));
     } catch (e) {
       emit(NewsError(e.toString()));

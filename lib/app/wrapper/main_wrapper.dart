@@ -44,7 +44,7 @@ class MainWrapper extends StatelessWidget {
               NavigationDestination(
                 icon: const Icon(Icons.newspaper_outlined),
                 selectedIcon: const Icon(Icons.newspaper_rounded),
-                label: 'News',
+                label: context.t.news.title,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.settings_outlined),

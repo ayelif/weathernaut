@@ -10,10 +10,12 @@ class HomeLoaded extends HomeState {
   final Map<String, dynamic> weather;
   final Map<String, dynamic> forecast;
   final String city;
+  final bool isOffline;
   HomeLoaded({
     required this.weather,
     required this.forecast,
     required this.city,
+    this.isOffline = false,
   });
 }
 

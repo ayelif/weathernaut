@@ -12,6 +12,8 @@ import 'package:weathernaut/core/data/local/hive_boxes.dart';
 import 'package:weathernaut/core/extensions/context_extension.dart';
 import 'package:weathernaut/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:weathernaut/gen/strings.g.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:weathernaut/core/data/network/firestore_service.dart';
 
 @RoutePage()
 class SearchView extends StatefulWidget {
@@ -28,25 +30,58 @@ class _SearchViewState extends State<SearchView> {
   void initState() {
     super.initState();
     _citiesBox = Hive.box(HiveBoxes.cities);
+    _syncFirestoreCities();
+  }
+
+  Future<void> _syncFirestoreCities() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      final firestoreCities = await FirestoreService().getSavedCities(uid);
+      if (firestoreCities.isNotEmpty) {
+        final currentLocal = _savedCities;
+        bool changed = false;
+        for (final city in firestoreCities) {
+          if (!currentLocal.contains(city)) {
+            await _citiesBox.add(city);
+            changed = true;
+          }
+        }
+        final combined = _savedCities;
+        if (combined.length > firestoreCities.length || changed) {
+          await FirestoreService().saveCities(uid, combined);
+        }
+        if (mounted) {
+          setState(() {});
+        }
+      }
+    }
   }
 
   List<String> get _savedCities => _citiesBox.values.cast<String>().toList();
 
-  void _addCity(String name) {
+  void _addCity(String name) async {
     if (!_savedCities.contains(name)) {
-      _citiesBox.add(name);
+      await _citiesBox.add(name);
       setState(() {});
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await FirestoreService().saveCities(uid, _savedCities);
+      }
     }
   }
 
-  void _removeCity(String name) {
+  void _removeCity(String name) async {
     final key = _citiesBox.keys.firstWhere(
       (k) => _citiesBox.get(k) == name,
       orElse: () => null,
     );
     if (key != null) {
-      _citiesBox.delete(key);
+      await _citiesBox.delete(key);
       setState(() {});
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid != null) {
+        await FirestoreService().saveCities(uid, _savedCities);
+      }
     }
   }
 

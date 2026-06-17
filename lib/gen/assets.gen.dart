@@ -41,6 +41,16 @@ class $AssetsAnimationsGen {
   ];
 }
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/NotoColorEmoji.ttf
+  String get notoColorEmoji => 'assets/fonts/NotoColorEmoji.ttf';
+
+  /// List of all assets
+  List<String> get values => [notoColorEmoji];
+}
+
 class $AssetsI18nGen {
   const $AssetsI18nGen();
 
@@ -58,5 +68,6 @@ class Assets {
   const Assets._();
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsI18nGen i18n = $AssetsI18nGen();
 }

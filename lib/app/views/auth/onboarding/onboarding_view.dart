@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weathernaut/app/routes/app_router.dart';
 import 'package:weathernaut/core/base/background_view.dart';
+import 'package:weathernaut/core/data/local/hive_boxes.dart';
 import 'package:weathernaut/core/extensions/context_extension.dart';
+import 'package:weathernaut/core/resources/resources.g.dart';
 
 @RoutePage()
 class OnboardingView extends StatefulWidget {
@@ -16,35 +19,37 @@ class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map<String, String>> _pages = [
-    {
-      'title': 'Real-Time Weather',
-      'description':
-          'Get accurate weather updates for any city around the world.',
-      'icon': '🌤️',
-    },
-    {
-      'title': 'Weekly Forecast',
-      'description': 'Plan your week ahead with 7-day weather forecasts.',
-      'icon': '📅',
-    },
-    {
-      'title': 'Save Your Cities',
-      'description': 'Track weather for multiple cities at once.',
-      'icon': '📍',
-    },
-  ];
-
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
-  void _goToSignIn() => context.router.push(const SignInViewRoute());
+  void _goToSignIn() {
+    Hive.box(HiveBoxes.settings).put('onboarding_seen', true);
+    context.router.replaceAll([const SignInViewRoute()]);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final pages = [
+      {
+        'title': context.t.onboarding.page1Title,
+        'description': context.t.onboarding.page1Desc,
+        'icon': '🌤️',
+      },
+      {
+        'title': context.t.onboarding.page2Title,
+        'description': context.t.onboarding.page2Desc,
+        'icon': '📅',
+      },
+      {
+        'title': context.t.onboarding.page3Title,
+        'description': context.t.onboarding.page3Desc,
+        'icon': '📍',
+      },
+    ];
+
     return BackgroundView(
       child: SafeArea(
         child: Column(
@@ -53,9 +58,9 @@ class _OnboardingViewState extends State<OnboardingView> {
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) => setState(() => _currentPage = index),
-                itemCount: _pages.length,
+                itemCount: pages.length,
                 itemBuilder: (context, index) {
-                  final page = _pages[index];
+                  final page = pages[index];
                   return Padding(
                     padding: const EdgeInsets.all(32),
                     child: Column(
@@ -89,7 +94,7 @@ class _OnboardingViewState extends State<OnboardingView> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(_pages.length, (index) {
+              children: List.generate(pages.length, (index) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -113,7 +118,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_currentPage < _pages.length - 1) {
+                        if (_currentPage < pages.length - 1) {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.easeInOut,
@@ -129,17 +134,17 @@ class _OnboardingViewState extends State<OnboardingView> {
                         ),
                       ),
                       child: Text(
-                        _currentPage < _pages.length - 1
-                            ? 'Next'
-                            : 'Get Started',
+                        _currentPage < pages.length - 1
+                            ? context.t.onboarding.next
+                            : context.t.onboarding.getStarted,
                       ),
                     ),
                   ),
-                  if (_currentPage < _pages.length - 1) ...[
+                  if (_currentPage < pages.length - 1) ...[
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: _goToSignIn,
-                      child: const Text('Skip'),
+                      child: Text(context.t.onboarding.skip),
                     ),
                   ],
                 ],

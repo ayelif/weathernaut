@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:weathernaut/app/routes/app_router.dart';
 import 'package:weathernaut/core/base/background_view.dart';
+import 'package:weathernaut/core/data/local/hive_boxes.dart';
 import 'package:weathernaut/core/extensions/context_extension.dart';
 import 'package:weathernaut/core/resources/resources.g.dart';
 
@@ -17,9 +21,31 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    _initializeApp();
+  }
+
+  void _initializeApp() {
     Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
+      if (!mounted) return;
+
+      final settingsBox = Hive.box(HiveBoxes.settings);
+      final onboardingSeen = settingsBox.get('onboarding_seen', defaultValue: false) as bool;
+
+      bool isUserLoggedIn = false;
+      try {
+        if (Firebase.apps.isNotEmpty) {
+          isUserLoggedIn = FirebaseAuth.instance.currentUser != null;
+        }
+      } catch (_) {
+        // Firebase not initialized yet
+      }
+
+      if (!onboardingSeen) {
         context.router.replaceAll([const OnboardingViewRoute()]);
+      } else if (!isUserLoggedIn) {
+        context.router.replaceAll([const SignInViewRoute()]);
+      } else {
+        context.router.replaceAll([const MainWrapperRoute()]);
       }
     });
   }

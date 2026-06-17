@@ -53,6 +53,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsHomeTr home = TranslationsHomeTr._(_root);
 	late final TranslationsSearchTr search = TranslationsSearchTr._(_root);
 	late final TranslationsSettingsTr settings = TranslationsSettingsTr._(_root);
+	late final TranslationsOnboardingTr onboarding = TranslationsOnboardingTr._(_root);
+	late final TranslationsAuthTr auth = TranslationsAuthTr._(_root);
+	late final TranslationsNewsTr news = TranslationsNewsTr._(_root);
 }
 
 // Path: home
@@ -149,6 +152,114 @@ class TranslationsSettingsTr {
 
 	/// tr: 'Türkçe'
 	String get turkish => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe';
+
+	/// tr: 'Oturumu Kapat'
+	String get logout => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Oturumu Kapat';
+}
+
+// Path: onboarding
+class TranslationsOnboardingTr {
+	TranslationsOnboardingTr._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// tr: 'Geç'
+	String get skip => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Geç';
+
+	/// tr: 'İleri'
+	String get next => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'İleri';
+
+	/// tr: 'Başla'
+	String get getStarted => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Başla';
+
+	/// tr: 'Anlık Hava Durumu'
+	String get page1Title => TranslationOverrides.string(_root.$meta, 'onboarding.page1Title', {}) ?? 'Anlık Hava Durumu';
+
+	/// tr: 'Dünya genelindeki herhangi bir şehir için doğru hava durumu güncellemelerini alın.'
+	String get page1Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page1Desc', {}) ?? 'Dünya genelindeki herhangi bir şehir için doğru hava durumu güncellemelerini alın.';
+
+	/// tr: 'Haftalık Tahmin'
+	String get page2Title => TranslationOverrides.string(_root.$meta, 'onboarding.page2Title', {}) ?? 'Haftalık Tahmin';
+
+	/// tr: '7 günlük hava durumu tahminleriyle haftanızı önceden planlayın.'
+	String get page2Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page2Desc', {}) ?? '7 günlük hava durumu tahminleriyle haftanızı önceden planlayın.';
+
+	/// tr: 'Şehirlerinizi Kaydedin'
+	String get page3Title => TranslationOverrides.string(_root.$meta, 'onboarding.page3Title', {}) ?? 'Şehirlerinizi Kaydedin';
+
+	/// tr: 'Aynı anda birden fazla şehrin hava durumunu takip edin.'
+	String get page3Desc => TranslationOverrides.string(_root.$meta, 'onboarding.page3Desc', {}) ?? 'Aynı anda birden fazla şehrin hava durumunu takip edin.';
+}
+
+// Path: auth
+class TranslationsAuthTr {
+	TranslationsAuthTr._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// tr: 'Tekrar Hoş Geldiniz 👋'
+	String get welcomeBack => TranslationOverrides.string(_root.$meta, 'auth.welcomeBack', {}) ?? 'Tekrar Hoş Geldiniz 👋';
+
+	/// tr: 'Devam etmek için giriş yapın'
+	String get signInToContinue => TranslationOverrides.string(_root.$meta, 'auth.signInToContinue', {}) ?? 'Devam etmek için giriş yapın';
+
+	/// tr: 'E-posta'
+	String get email => TranslationOverrides.string(_root.$meta, 'auth.email', {}) ?? 'E-posta';
+
+	/// tr: 'Şifre'
+	String get password => TranslationOverrides.string(_root.$meta, 'auth.password', {}) ?? 'Şifre';
+
+	/// tr: 'Şifremi Unuttum?'
+	String get forgotPassword => TranslationOverrides.string(_root.$meta, 'auth.forgotPassword', {}) ?? 'Şifremi Unuttum?';
+
+	/// tr: 'Giriş Yap'
+	String get signIn => TranslationOverrides.string(_root.$meta, 'auth.signIn', {}) ?? 'Giriş Yap';
+
+	/// tr: 'Hesabınız yok mu?'
+	String get dontHaveAccount => TranslationOverrides.string(_root.$meta, 'auth.dontHaveAccount', {}) ?? 'Hesabınız yok mu?';
+
+	/// tr: 'Kayıt Ol'
+	String get signUp => TranslationOverrides.string(_root.$meta, 'auth.signUp', {}) ?? 'Kayıt Ol';
+
+	/// tr: 'Hesap Oluştur 🌤️'
+	String get createAccount => TranslationOverrides.string(_root.$meta, 'auth.createAccount', {}) ?? 'Hesap Oluştur 🌤️';
+
+	/// tr: 'Başlamak için kayıt olun'
+	String get signUpToGetStarted => TranslationOverrides.string(_root.$meta, 'auth.signUpToGetStarted', {}) ?? 'Başlamak için kayıt olun';
+
+	/// tr: 'Ad Soyad'
+	String get fullName => TranslationOverrides.string(_root.$meta, 'auth.fullName', {}) ?? 'Ad Soyad';
+
+	/// tr: 'Zaten hesabınız var mı?'
+	String get alreadyHaveAccount => TranslationOverrides.string(_root.$meta, 'auth.alreadyHaveAccount', {}) ?? 'Zaten hesabınız var mı?';
+
+	/// tr: 'Lütfen tüm alanları doldurun'
+	String get errorEmptyFields => TranslationOverrides.string(_root.$meta, 'auth.errorEmptyFields', {}) ?? 'Lütfen tüm alanları doldurun';
+
+	/// tr: 'Lütfen geçerli bir e-posta adresi girin'
+	String get errorInvalidEmail => TranslationOverrides.string(_root.$meta, 'auth.errorInvalidEmail', {}) ?? 'Lütfen geçerli bir e-posta adresi girin';
+
+	/// tr: 'Şifre en az 6 karakter olmalıdır'
+	String get errorPasswordTooShort => TranslationOverrides.string(_root.$meta, 'auth.errorPasswordTooShort', {}) ?? 'Şifre en az 6 karakter olmalıdır';
+}
+
+// Path: news
+class TranslationsNewsTr {
+	TranslationsNewsTr._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// tr: 'Haberler'
+	String get title => TranslationOverrides.string(_root.$meta, 'news.title', {}) ?? 'Haberler';
+
+	/// tr: 'Haber bulunamadı'
+	String get noNews => TranslationOverrides.string(_root.$meta, 'news.noNews', {}) ?? 'Haber bulunamadı';
 }
 
 /// The flat map containing all translations for locale <tr>.
@@ -185,6 +296,33 @@ extension on Translations {
 			'settings.language' => TranslationOverrides.string(_root.$meta, 'settings.language', {}) ?? 'Dil',
 			'settings.english' => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English',
 			'settings.turkish' => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe',
+			'settings.logout' => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Oturumu Kapat',
+			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Geç',
+			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'İleri',
+			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Başla',
+			'onboarding.page1Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page1Title', {}) ?? 'Anlık Hava Durumu',
+			'onboarding.page1Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page1Desc', {}) ?? 'Dünya genelindeki herhangi bir şehir için doğru hava durumu güncellemelerini alın.',
+			'onboarding.page2Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page2Title', {}) ?? 'Haftalık Tahmin',
+			'onboarding.page2Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page2Desc', {}) ?? '7 günlük hava durumu tahminleriyle haftanızı önceden planlayın.',
+			'onboarding.page3Title' => TranslationOverrides.string(_root.$meta, 'onboarding.page3Title', {}) ?? 'Şehirlerinizi Kaydedin',
+			'onboarding.page3Desc' => TranslationOverrides.string(_root.$meta, 'onboarding.page3Desc', {}) ?? 'Aynı anda birden fazla şehrin hava durumunu takip edin.',
+			'auth.welcomeBack' => TranslationOverrides.string(_root.$meta, 'auth.welcomeBack', {}) ?? 'Tekrar Hoş Geldiniz 👋',
+			'auth.signInToContinue' => TranslationOverrides.string(_root.$meta, 'auth.signInToContinue', {}) ?? 'Devam etmek için giriş yapın',
+			'auth.email' => TranslationOverrides.string(_root.$meta, 'auth.email', {}) ?? 'E-posta',
+			'auth.password' => TranslationOverrides.string(_root.$meta, 'auth.password', {}) ?? 'Şifre',
+			'auth.forgotPassword' => TranslationOverrides.string(_root.$meta, 'auth.forgotPassword', {}) ?? 'Şifremi Unuttum?',
+			'auth.signIn' => TranslationOverrides.string(_root.$meta, 'auth.signIn', {}) ?? 'Giriş Yap',
+			'auth.dontHaveAccount' => TranslationOverrides.string(_root.$meta, 'auth.dontHaveAccount', {}) ?? 'Hesabınız yok mu?',
+			'auth.signUp' => TranslationOverrides.string(_root.$meta, 'auth.signUp', {}) ?? 'Kayıt Ol',
+			'auth.createAccount' => TranslationOverrides.string(_root.$meta, 'auth.createAccount', {}) ?? 'Hesap Oluştur 🌤️',
+			'auth.signUpToGetStarted' => TranslationOverrides.string(_root.$meta, 'auth.signUpToGetStarted', {}) ?? 'Başlamak için kayıt olun',
+			'auth.fullName' => TranslationOverrides.string(_root.$meta, 'auth.fullName', {}) ?? 'Ad Soyad',
+			'auth.alreadyHaveAccount' => TranslationOverrides.string(_root.$meta, 'auth.alreadyHaveAccount', {}) ?? 'Zaten hesabınız var mı?',
+			'auth.errorEmptyFields' => TranslationOverrides.string(_root.$meta, 'auth.errorEmptyFields', {}) ?? 'Lütfen tüm alanları doldurun',
+			'auth.errorInvalidEmail' => TranslationOverrides.string(_root.$meta, 'auth.errorInvalidEmail', {}) ?? 'Lütfen geçerli bir e-posta adresi girin',
+			'auth.errorPasswordTooShort' => TranslationOverrides.string(_root.$meta, 'auth.errorPasswordTooShort', {}) ?? 'Şifre en az 6 karakter olmalıdır',
+			'news.title' => TranslationOverrides.string(_root.$meta, 'news.title', {}) ?? 'Haberler',
+			'news.noNews' => TranslationOverrides.string(_root.$meta, 'news.noNews', {}) ?? 'Haber bulunamadı',
 			_ => null,
 		};
 	}

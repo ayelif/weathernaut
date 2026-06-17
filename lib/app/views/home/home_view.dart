@@ -61,6 +61,40 @@ class _HomeViewState extends State<HomeView> {
             ),
             children: [
               if (state is HomeLoaded) ...[
+                if (state.isOffline) ...[
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.amber.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Colors.amber.withOpacity(0.3),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.cloud_off_rounded,
+                          color: Colors.amber,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            TranslationProvider.of(context).locale == AppLocale.tr
+                                ? 'Çevrimdışı Mod: Önbellekteki veriler gösteriliyor.'
+                                : 'Offline Mode: Displaying cached data.',
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: Colors.amber.shade800,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
                 CurrentWeatherCard(weather: state.weather),
                 const SizedBox(height: 24),
                 Text(

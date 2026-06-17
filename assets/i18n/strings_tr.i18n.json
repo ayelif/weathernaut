@@ -29,6 +29,39 @@
     "fahrenheit": "Fahrenheit (°F)",
     "language": "Dil",
     "english": "English",
-    "turkish": "Türkçe"
+    "turkish": "Türkçe",
+    "logout": "Oturumu Kapat"
+  },
+  "onboarding": {
+    "skip": "Geç",
+    "next": "İleri",
+    "getStarted": "Başla",
+    "page1Title": "Anlık Hava Durumu",
+    "page1Desc": "Dünya genelindeki herhangi bir şehir için doğru hava durumu güncellemelerini alın.",
+    "page2Title": "Haftalık Tahmin",
+    "page2Desc": "7 günlük hava durumu tahminleriyle haftanızı önceden planlayın.",
+    "page3Title": "Şehirlerinizi Kaydedin",
+    "page3Desc": "Aynı anda birden fazla şehrin hava durumunu takip edin."
+  },
+  "auth": {
+    "welcomeBack": "Tekrar Hoş Geldiniz 👋",
+    "signInToContinue": "Devam etmek için giriş yapın",
+    "email": "E-posta",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi Unuttum?",
+    "signIn": "Giriş Yap",
+    "dontHaveAccount": "Hesabınız yok mu?",
+    "signUp": "Kayıt Ol",
+    "createAccount": "Hesap Oluştur 🌤️",
+    "signUpToGetStarted": "Başlamak için kayıt olun",
+    "fullName": "Ad Soyad",
+    "alreadyHaveAccount": "Zaten hesabınız var mı?",
+    "errorEmptyFields": "Lütfen tüm alanları doldurun",
+    "errorInvalidEmail": "Lütfen geçerli bir e-posta adresi girin",
+    "errorPasswordTooShort": "Şifre en az 6 karakter olmalıdır"
+  },
+  "news": {
+    "title": "Haberler",
+    "noNews": "Haber bulunamadı"
   }
 }

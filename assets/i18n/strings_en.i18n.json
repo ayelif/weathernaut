@@ -29,6 +29,39 @@
     "fahrenheit": "Fahrenheit (°F)",
     "language": "Language",
     "english": "English",
-    "turkish": "Türkçe"
+    "turkish": "Türkçe",
+    "logout": "Log Out"
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "getStarted": "Get Started",
+    "page1Title": "Real-Time Weather",
+    "page1Desc": "Get accurate weather updates for any city around the world.",
+    "page2Title": "Weekly Forecast",
+    "page2Desc": "Plan your week ahead with 7-day weather forecasts.",
+    "page3Title": "Save Your Cities",
+    "page3Desc": "Track weather for multiple cities at once."
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back 👋",
+    "signInToContinue": "Sign in to continue",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "dontHaveAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "createAccount": "Create Account 🌤️",
+    "signUpToGetStarted": "Sign up to get started",
+    "fullName": "Full Name",
+    "alreadyHaveAccount": "Already have an account?",
+    "errorEmptyFields": "Please fill in all fields",
+    "errorInvalidEmail": "Please enter a valid email address",
+    "errorPasswordTooShort": "Password must be at least 6 characters"
+  },
+  "news": {
+    "title": "News",
+    "noNews": "No news found"
   }
 }
