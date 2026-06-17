@@ -155,6 +155,24 @@ class TranslationsSettingsTr {
 
 	/// tr: 'Oturumu Kapat'
 	String get logout => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Oturumu Kapat';
+
+	/// tr: 'İsmi Güncelle'
+	String get updateNameTitle => TranslationOverrides.string(_root.$meta, 'settings.updateNameTitle', {}) ?? 'İsmi Güncelle';
+
+	/// tr: 'Adınız Soyadınız'
+	String get updateNameHint => TranslationOverrides.string(_root.$meta, 'settings.updateNameHint', {}) ?? 'Adınız Soyadınız';
+
+	/// tr: 'Kaydet'
+	String get save => TranslationOverrides.string(_root.$meta, 'settings.save', {}) ?? 'Kaydet';
+
+	/// tr: 'İptal'
+	String get cancel => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'İptal';
+
+	/// tr: 'Profil ismi güncellendi!'
+	String get nameUpdated => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profil ismi güncellendi!';
+
+	/// tr: 'İsim boş olamaz!'
+	String get nameError => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'İsim boş olamaz!';
 }
 
 // Path: onboarding
@@ -297,6 +315,12 @@ extension on Translations {
 			'settings.english' => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English',
 			'settings.turkish' => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe',
 			'settings.logout' => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Oturumu Kapat',
+			'settings.updateNameTitle' => TranslationOverrides.string(_root.$meta, 'settings.updateNameTitle', {}) ?? 'İsmi Güncelle',
+			'settings.updateNameHint' => TranslationOverrides.string(_root.$meta, 'settings.updateNameHint', {}) ?? 'Adınız Soyadınız',
+			'settings.save' => TranslationOverrides.string(_root.$meta, 'settings.save', {}) ?? 'Kaydet',
+			'settings.cancel' => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'İptal',
+			'settings.nameUpdated' => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profil ismi güncellendi!',
+			'settings.nameError' => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'İsim boş olamaz!',
 			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Geç',
 			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'İleri',
 			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Başla',

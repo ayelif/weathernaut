@@ -98,6 +98,12 @@ class _TranslationsSettingsEn implements TranslationsSettingsTr {
 	@override String get english => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English';
 	@override String get turkish => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe';
 	@override String get logout => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Log Out';
+	@override String get updateNameTitle => TranslationOverrides.string(_root.$meta, 'settings.updateNameTitle', {}) ?? 'Update Name';
+	@override String get updateNameHint => TranslationOverrides.string(_root.$meta, 'settings.updateNameHint', {}) ?? 'Your Full Name';
+	@override String get save => TranslationOverrides.string(_root.$meta, 'settings.save', {}) ?? 'Save';
+	@override String get cancel => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'Cancel';
+	@override String get nameUpdated => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profile name updated!';
+	@override String get nameError => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'Name cannot be empty!';
 }
 
 // Path: onboarding
@@ -188,6 +194,12 @@ extension on TranslationsEn {
 			'settings.english' => TranslationOverrides.string(_root.$meta, 'settings.english', {}) ?? 'English',
 			'settings.turkish' => TranslationOverrides.string(_root.$meta, 'settings.turkish', {}) ?? 'Türkçe',
 			'settings.logout' => TranslationOverrides.string(_root.$meta, 'settings.logout', {}) ?? 'Log Out',
+			'settings.updateNameTitle' => TranslationOverrides.string(_root.$meta, 'settings.updateNameTitle', {}) ?? 'Update Name',
+			'settings.updateNameHint' => TranslationOverrides.string(_root.$meta, 'settings.updateNameHint', {}) ?? 'Your Full Name',
+			'settings.save' => TranslationOverrides.string(_root.$meta, 'settings.save', {}) ?? 'Save',
+			'settings.cancel' => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'Cancel',
+			'settings.nameUpdated' => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profile name updated!',
+			'settings.nameError' => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'Name cannot be empty!',
 			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Skip',
 			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'Next',
 			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Get Started',

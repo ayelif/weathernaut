@@ -88,6 +88,80 @@ class _SettingsViewState extends State<SettingsView> {
     }
   }
 
+  Future<void> _editProfileName() async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    final controller = TextEditingController(text: user.displayName);
+    final newName = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Text(context.t.settings.updateNameTitle),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: context.t.settings.updateNameHint,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            autofocus: true,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(context.t.settings.cancel),
+            ),
+            TextButton(
+              onPressed: () {
+                final text = controller.text.trim();
+                if (text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(context.t.settings.nameError)),
+                  );
+                  return;
+                }
+                Navigator.pop(context, text);
+              },
+              child: Text(context.t.settings.save),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (newName != null && newName.isNotEmpty && newName != user.displayName) {
+      setState(() {
+        _isUploading = true;
+      });
+      try {
+        await user.updateDisplayName(newName);
+        await user.reload();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(context.t.settings.nameUpdated)),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Hata: ${e.toString()}')),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isUploading = false;
+          });
+        }
+      }
+    }
+  }
+
   Widget _buildProfileCard(BuildContext context) {
     final user = _auth.currentUser;
     final displayName = user?.displayName ?? '';
@@ -165,12 +239,28 @@ class _SettingsViewState extends State<SettingsView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  displayName.isNotEmpty ? displayName : 'Kullanıcı',
-                  style: context.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        displayName.isNotEmpty ? displayName : 'Kullanıcı',
+                        style: context.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.edit_rounded,
+                        size: 18,
+                        color: context.colorScheme.primary,
+                      ),
+                      onPressed: _editProfileName,
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 4),
                 Text(

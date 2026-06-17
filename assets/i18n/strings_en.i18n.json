@@ -30,7 +30,13 @@
     "language": "Language",
     "english": "English",
     "turkish": "Türkçe",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "updateNameTitle": "Update Name",
+    "updateNameHint": "Your Full Name",
+    "save": "Save",
+    "cancel": "Cancel",
+    "nameUpdated": "Profile name updated!",
+    "nameError": "Name cannot be empty!"
   },
   "onboarding": {
     "skip": "Skip",

@@ -30,7 +30,13 @@
     "language": "Dil",
     "english": "English",
     "turkish": "Türkçe",
-    "logout": "Oturumu Kapat"
+    "logout": "Oturumu Kapat",
+    "updateNameTitle": "İsmi Güncelle",
+    "updateNameHint": "Adınız Soyadınız",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "nameUpdated": "Profil ismi güncellendi!",
+    "nameError": "İsim boş olamaz!"
   },
   "onboarding": {
     "skip": "Geç",
