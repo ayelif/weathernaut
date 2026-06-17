@@ -19,13 +19,30 @@ class WeatherAnimation extends StatelessWidget {
     } else if (c.contains('thunder') ||
         c.contains('gök') ||
         c.contains('storm')) {
+      if (c.contains('rain') || c.contains('yağmur') || c.contains('sağanak')) {
+        return 'assets/animations/thunder_rain.json';
+      }
       return 'assets/animations/thunderstorm.json';
     } else if (c.contains('rain') ||
-        c.contains('drizzle') ||
-        c.contains('yağmur')) {
+        c.contains('sağanak') ||
+        c.contains('yağmur') ||
+        c.contains('drizzle')) {
+      if (c.contains('light') ||
+          c.contains('patchy') ||
+          c.contains('hafif') ||
+          c.contains('çiseleyen') ||
+          c.contains('drizzle')) {
+        return 'assets/animations/light_rain.json';
+      }
       return 'assets/animations/rainy.json';
     } else if (c.contains('snow') || c.contains('kar') || c.contains('sleet')) {
       return 'assets/animations/snowy.json';
+    } else if (c.contains('fog') ||
+        c.contains('mist') ||
+        c.contains('sis') ||
+        c.contains('pus') ||
+        c.contains('haze')) {
+      return 'assets/animations/foggy.json';
     } else if (c.contains('cloud') ||
         c.contains('bulut') ||
         c.contains('overcast')) {
