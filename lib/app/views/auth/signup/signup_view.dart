@@ -75,88 +75,100 @@ class _SignUpViewState extends State<SignUpView> {
 
         return BackgroundView(
           child: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 40),
-                    Text(
-                      context.t.auth.createAccount,
-                      style: context.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      context.t.auth.signUpToGetStarted,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    CustomTextFormField(
-                      hintText: context.t.auth.fullName,
-                      prefixIcon: Icons.person_outline_rounded,
-                      controller: _nameController,
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextFormField(
-                      hintText: context.t.auth.email,
-                      prefixIcon: Icons.email_outlined,
-                      controller: _emailController,
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextFormField(
-                      hintText: context.t.auth.password,
-                      prefixIcon: Icons.lock_outline_rounded,
-                      obscureText: true,
-                      controller: _passwordController,
-                    ),
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: isLoading ? null : _submit,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(strokeWidth: 2),
-                              )
-                            : Text(
-                                context.t.auth.signUp,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              context.t.auth.createAccount,
+                              style: context.textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              context.t.auth.signUpToGetStarted,
+                              style: context.textTheme.bodyLarge?.copyWith(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                            CustomTextFormField(
+                              hintText: context.t.auth.fullName,
+                              prefixIcon: Icons.person_outline_rounded,
+                              controller: _nameController,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomTextFormField(
+                              hintText: context.t.auth.email,
+                              prefixIcon: Icons.email_outlined,
+                              controller: _emailController,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomTextFormField(
+                              hintText: context.t.auth.password,
+                              prefixIcon: Icons.lock_outline_rounded,
+                              obscureText: true,
+                              controller: _passwordController,
+                            ),
+                            const SizedBox(height: 32),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: isLoading ? null : _submit,
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                child: isLoading
+                                    ? const SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(strokeWidth: 2),
+                                      )
+                                    : Text(
+                                        context.t.auth.signUp,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  context.t.auth.alreadyHaveAccount,
+                                  style: context.textTheme.bodyLarge,
+                                ),
+                                TextButton(
+                                  onPressed: () => context.router.pop(),
+                                  child: Text(context.t.auth.signIn),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          context.t.auth.alreadyHaveAccount,
-                          style: context.textTheme.bodyLarge,
-                        ),
-                        TextButton(
-                          onPressed: () => context.router.pop(),
-                          child: Text(context.t.auth.signIn),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ),
         );

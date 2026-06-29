@@ -104,6 +104,8 @@ class _TranslationsSettingsEn implements TranslationsSettingsTr {
 	@override String get cancel => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'Cancel';
 	@override String get nameUpdated => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profile name updated!';
 	@override String get nameError => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'Name cannot be empty!';
+	@override String get immersiveVibrations => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrations', {}) ?? 'Immersive Vibrations';
+	@override String get immersiveVibrationsDesc => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrationsDesc', {}) ?? 'Enable vibration effects based on the weather.';
 }
 
 // Path: onboarding
@@ -200,6 +202,8 @@ extension on TranslationsEn {
 			'settings.cancel' => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'Cancel',
 			'settings.nameUpdated' => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profile name updated!',
 			'settings.nameError' => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'Name cannot be empty!',
+			'settings.immersiveVibrations' => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrations', {}) ?? 'Immersive Vibrations',
+			'settings.immersiveVibrationsDesc' => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrationsDesc', {}) ?? 'Enable vibration effects based on the weather.',
 			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Skip',
 			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'Next',
 			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Get Started',

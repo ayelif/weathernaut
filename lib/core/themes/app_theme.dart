@@ -27,6 +27,41 @@ class AppTheme {
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.black),
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        indicatorColor: Colors.transparent,
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const IconThemeData(
+                color: Color(0xFF0F8CFF),
+                size: 26,
+              );
+            }
+            return const IconThemeData(
+              color: Colors.black38,
+              size: 24,
+            );
+          },
+        ),
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const TextStyle(
+                color: Color(0xFF0F8CFF),
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              );
+            }
+            return const TextStyle(
+              color: Colors.black38,
+              fontWeight: FontWeight.w500,
+              fontSize: 11,
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -52,6 +87,41 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        indicatorColor: Colors.transparent,
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const IconThemeData(
+                color: Color(0xFF0F8CFF),
+                size: 26,
+              );
+            }
+            return const IconThemeData(
+              color: Colors.white38,
+              size: 24,
+            );
+          },
+        ),
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const TextStyle(
+                color: Color(0xFF0F8CFF),
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              );
+            }
+            return const TextStyle(
+              color: Colors.white38,
+              fontWeight: FontWeight.w500,
+              fontSize: 11,
+            );
+          },
+        ),
       ),
     );
   }

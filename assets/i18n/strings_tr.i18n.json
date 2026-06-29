@@ -3,7 +3,7 @@
   "appName": "Weathernaut",
   "welcome": "Weathernaut'a Hoş Geldiniz",
   "home": {
-    "title": "Hava Durumu Paneli",
+    "title": "Hava Durumu",
     "humidity": "Nem",
     "wind": "Rüzgar Hızı",
     "pressure": "Basınç",
@@ -36,7 +36,9 @@
     "save": "Kaydet",
     "cancel": "İptal",
     "nameUpdated": "Profil ismi güncellendi!",
-    "nameError": "İsim boş olamaz!"
+    "nameError": "İsim boş olamaz!",
+    "immersiveVibrations": "Sürükleyici Titreşimler",
+    "immersiveVibrationsDesc": "Hava durumuna göre titreşim efektlerini etkinleştir."
   },
   "onboarding": {
     "skip": "Geç",

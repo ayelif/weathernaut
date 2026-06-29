@@ -36,7 +36,9 @@
     "save": "Save",
     "cancel": "Cancel",
     "nameUpdated": "Profile name updated!",
-    "nameError": "Name cannot be empty!"
+    "nameError": "Name cannot be empty!",
+    "immersiveVibrations": "Immersive Vibrations",
+    "immersiveVibrationsDesc": "Enable vibration effects based on the weather."
   },
   "onboarding": {
     "skip": "Skip",

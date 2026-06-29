@@ -10,28 +10,40 @@ class CurrentWeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = weather['current'];
-    final location = weather['location'];
     final temp = current?['temp_c']?.toString() ?? '--';
     final condition = current?['condition']?['text'] ?? '--';
     final humidity = current?['humidity']?.toString() ?? '--';
     final wind = current?['wind_kph']?.toString() ?? '--';
     final pressure = current?['pressure_mb']?.toString() ?? '--';
+    final isDay = current?['is_day'] == 1;
+    final isDarkTheme = context.theme.brightness == Brightness.dark;
+
+    final cardColors = (isDay || !isDarkTheme)
+        ? [
+            context.colorScheme.primary.withOpacity(0.85),
+            context.colorScheme.secondary.withOpacity(0.85),
+          ]
+        : [
+            const Color(0xFF1E1B4B).withOpacity(0.9), // Deep indigo
+            const Color(0xFF2E0854).withOpacity(0.9), // Dark violet/magenta
+          ];
+
+    final shadowColor = (isDay || !isDarkTheme)
+        ? context.colorScheme.primary.withOpacity(0.2)
+        : const Color(0xFF0F172A).withOpacity(0.4);
 
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            context.colorScheme.primary.withOpacity(0.85),
-            context.colorScheme.secondary.withOpacity(0.85),
-          ],
+          colors: cardColors,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.primary.withOpacity(0.2),
+            color: shadowColor,
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -39,7 +51,7 @@ class CurrentWeatherCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          WeatherAnimation(condition: condition, size: 120),
+          WeatherAnimation(condition: condition, size: 120, isDay: isDay),
           const SizedBox(height: 16),
           Text(
             condition,

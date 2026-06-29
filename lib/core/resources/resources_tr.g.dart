@@ -66,8 +66,8 @@ class TranslationsHomeTr {
 
 	// Translations
 
-	/// tr: 'Hava Durumu Paneli'
-	String get title => TranslationOverrides.string(_root.$meta, 'home.title', {}) ?? 'Hava Durumu Paneli';
+	/// tr: 'Hava Durumu'
+	String get title => TranslationOverrides.string(_root.$meta, 'home.title', {}) ?? 'Hava Durumu';
 
 	/// tr: 'Nem'
 	String get humidity => TranslationOverrides.string(_root.$meta, 'home.humidity', {}) ?? 'Nem';
@@ -173,6 +173,12 @@ class TranslationsSettingsTr {
 
 	/// tr: 'İsim boş olamaz!'
 	String get nameError => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'İsim boş olamaz!';
+
+	/// tr: 'Sürükleyici Titreşimler'
+	String get immersiveVibrations => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrations', {}) ?? 'Sürükleyici Titreşimler';
+
+	/// tr: 'Hava durumuna göre titreşim efektlerini etkinleştir.'
+	String get immersiveVibrationsDesc => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrationsDesc', {}) ?? 'Hava durumuna göre titreşim efektlerini etkinleştir.';
 }
 
 // Path: onboarding
@@ -291,7 +297,7 @@ extension on Translations {
 			'projectName' => TranslationOverrides.string(_root.$meta, 'projectName', {}) ?? 'Weathernaut',
 			'appName' => TranslationOverrides.string(_root.$meta, 'appName', {}) ?? 'Weathernaut',
 			'welcome' => TranslationOverrides.string(_root.$meta, 'welcome', {}) ?? 'Weathernaut\'a Hoş Geldiniz',
-			'home.title' => TranslationOverrides.string(_root.$meta, 'home.title', {}) ?? 'Hava Durumu Paneli',
+			'home.title' => TranslationOverrides.string(_root.$meta, 'home.title', {}) ?? 'Hava Durumu',
 			'home.humidity' => TranslationOverrides.string(_root.$meta, 'home.humidity', {}) ?? 'Nem',
 			'home.wind' => TranslationOverrides.string(_root.$meta, 'home.wind', {}) ?? 'Rüzgar Hızı',
 			'home.pressure' => TranslationOverrides.string(_root.$meta, 'home.pressure', {}) ?? 'Basınç',
@@ -321,6 +327,8 @@ extension on Translations {
 			'settings.cancel' => TranslationOverrides.string(_root.$meta, 'settings.cancel', {}) ?? 'İptal',
 			'settings.nameUpdated' => TranslationOverrides.string(_root.$meta, 'settings.nameUpdated', {}) ?? 'Profil ismi güncellendi!',
 			'settings.nameError' => TranslationOverrides.string(_root.$meta, 'settings.nameError', {}) ?? 'İsim boş olamaz!',
+			'settings.immersiveVibrations' => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrations', {}) ?? 'Sürükleyici Titreşimler',
+			'settings.immersiveVibrationsDesc' => TranslationOverrides.string(_root.$meta, 'settings.immersiveVibrationsDesc', {}) ?? 'Hava durumuna göre titreşim efektlerini etkinleştir.',
 			'onboarding.skip' => TranslationOverrides.string(_root.$meta, 'onboarding.skip', {}) ?? 'Geç',
 			'onboarding.next' => TranslationOverrides.string(_root.$meta, 'onboarding.next', {}) ?? 'İleri',
 			'onboarding.getStarted' => TranslationOverrides.string(_root.$meta, 'onboarding.getStarted', {}) ?? 'Başla',

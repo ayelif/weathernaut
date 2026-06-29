@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weathernaut/core/widgets/night_sky_animation.dart';
 
 class WeatherAnimation extends StatelessWidget {
   final String condition;
   final double size;
+  final bool isDay;
 
-  const WeatherAnimation({super.key, required this.condition, this.size = 80});
+  const WeatherAnimation({
+    super.key,
+    required this.condition,
+    this.size = 80,
+    this.isDay = true,
+  });
 
   String _getAnimationPath(String condition) {
     final c = condition.toLowerCase();
@@ -53,6 +60,46 @@ class WeatherAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = condition.toLowerCase();
+    final isClear = c.contains('sunny') ||
+        c.contains('clear') ||
+        c.contains('güneşli') ||
+        c.contains('açık');
+    final isPartlyCloudy = c.contains('partly') || c.contains('parçalı');
+
+    if (!isDay) {
+      if (isClear) {
+        return NightSkyAnimation(size: size);
+      }
+      if (isPartlyCloudy) {
+        return SizedBox(
+          width: size,
+          height: size,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                right: 0,
+                top: 0,
+                child: NightSkyAnimation(size: size * 0.75),
+              ),
+              Positioned(
+                left: 0,
+                bottom: 0,
+                child: Lottie.asset(
+                  'assets/animations/cloudy.json',
+                  width: size * 0.85,
+                  height: size * 0.85,
+                  fit: BoxFit.contain,
+                  options: LottieOptions(enableMergePaths: true),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
     return SizedBox(
       width: size,
       height: size,

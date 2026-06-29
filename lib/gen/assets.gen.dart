@@ -15,6 +15,12 @@ class $AssetsAnimationsGen {
   /// File path: assets/animations/cloudy.json
   String get cloudy => 'assets/animations/cloudy.json';
 
+  /// File path: assets/animations/foggy.json
+  String get foggy => 'assets/animations/foggy.json';
+
+  /// File path: assets/animations/light_rain.json
+  String get lightRain => 'assets/animations/light_rain.json';
+
   /// File path: assets/animations/partly_cloudy.json
   String get partlyCloudy => 'assets/animations/partly_cloudy.json';
 
@@ -27,16 +33,22 @@ class $AssetsAnimationsGen {
   /// File path: assets/animations/sunny.json
   String get sunny => 'assets/animations/sunny.json';
 
+  /// File path: assets/animations/thunder_rain.json
+  String get thunderRain => 'assets/animations/thunder_rain.json';
+
   /// File path: assets/animations/thunderstorm.json
   String get thunderstorm => 'assets/animations/thunderstorm.json';
 
   /// List of all assets
   List<String> get values => [
     cloudy,
+    foggy,
+    lightRain,
     partlyCloudy,
     rainy,
     snowy,
     sunny,
+    thunderRain,
     thunderstorm,
   ];
 }

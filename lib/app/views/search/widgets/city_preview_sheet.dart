@@ -28,11 +28,6 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
   String? _error;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_loaded) {
@@ -44,17 +39,9 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
   Future<void> _loadWeather() async {
     try {
       final repository = context.read<HomeBloc>().repository;
-      final lang = TranslationProvider.of(context).locale == AppLocale.tr
-          ? 'tr'
-          : 'en';
-      final weather = await repository.getCurrentWeather(
-        widget.cityData['name'],
-        lang: lang,
-      );
-      final forecast = await repository.getForecast(
-        widget.cityData['name'],
-        lang: lang,
-      );
+      final lang = TranslationProvider.of(context).locale == AppLocale.tr ? 'tr' : 'en';
+      final weather = await repository.getCurrentWeather(widget.cityData['name'], lang: lang);
+      final forecast = await repository.getForecast(widget.cityData['name'], lang: lang);
       setState(() {
         _weather = weather;
         _forecast = forecast;
@@ -72,9 +59,7 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
   Widget build(BuildContext context) {
     final name = widget.cityData['name'] ?? '';
     final country = widget.cityData['country'] ?? '';
-    final lang = TranslationProvider.of(context).locale == AppLocale.tr
-        ? 'tr'
-        : 'en';
+    final lang = TranslationProvider.of(context).locale == AppLocale.tr ? 'tr' : 'en';
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -110,18 +95,14 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
                     ),
                     Text(
                       country,
-                      style: context.textTheme.bodyLarge?.copyWith(
-                        color: Colors.grey,
-                      ),
+                      style: context.textTheme.bodyLarge?.copyWith(color: Colors.grey),
                     ),
                   ],
                 ),
                 if (_weather != null)
                   Text(
                     '${_weather!['current']['temp_c']}°',
-                    style: context.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
               ],
             ),
@@ -148,16 +129,8 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
                       getWeatherIcon(_weather!['current']['condition']['text']),
                       _weather!['current']['condition']['text'],
                     ),
-                    _buildParam(
-                      context,
-                      Icons.water_drop_outlined,
-                      '${_weather!['current']['humidity']}%',
-                    ),
-                    _buildParam(
-                      context,
-                      Icons.air_rounded,
-                      '${_weather!['current']['wind_kph']} km/h',
-                    ),
+                    _buildParam(context, Icons.water_drop_outlined, '${_weather!['current']['humidity']}%'),
+                    _buildParam(context, Icons.air_rounded, '${_weather!['current']['wind_kph']} km/h'),
                   ],
                 ),
               ),
@@ -173,9 +146,7 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
                     child: const Text('Vazgeç'),
                   ),
@@ -189,9 +160,7 @@ class _CityPreviewSheetState extends State<CityPreviewSheet> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
                     child: const Text('Ekle'),
                   ),
